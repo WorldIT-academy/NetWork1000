@@ -6,8 +6,10 @@
 </head>
 <body>
     <h1>Registration</h1>
+    <!-- Форма реєстрації, з методом запиту post (відправка даних на сервер) -->
     <form method="post">
-        {% csrf_token %}
+        <!-- Створюємо токен, що підтверджує ориганільність форми, завдяки чому севрер погоджується обробляти запит з форму -->
+        {% csrf_token %} 
         <p><input type="text" placeholder= "username" name="username" required></p>
         <p><input type="password" placeholder= "password" name="password" required></p>
         <p><input type="password" placeholder= "confirm password" name="confirm_password" required></p>
