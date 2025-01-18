@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.models import User
 from django.db.utils import IntegrityError
 from django.contrib.auth import authenticate, login, logout
+from .models import Profile
 
 
 def render_registration(request):
@@ -56,3 +57,7 @@ def logout_user(request):
     # Вихід із акаунту
     logout(request)
     return redirect('login')
+
+def render_profiles(request):
+    all_profiles = Profile.objects.all()
+    return render(request, "user_app/profiles.html", context={"all_profiles": all_profiles})
