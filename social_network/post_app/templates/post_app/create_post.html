@@ -8,7 +8,13 @@
     <h1>Створити публікацію</h1>
     <form method="post" enctype="multipart/form-data" >
         {% csrf_token %}
-        {{ form.as_p }}
+        <!-- Перебираємо усі поля форми -->
+        {% for field in form %}
+            <!-- Відображаємо поле -->
+            <div class="field-container">{{field}}</div>
+            <!-- Відображаємо помилки поля (у разі необхідності) -->
+            <div class="field-errors">{{field.errors}}</div>
+        {% endfor %}
     <p>
         <button>Надіслати</button>
     </p>

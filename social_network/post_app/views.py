@@ -16,16 +16,14 @@ def render_all_posts(request):
 @login_required
 def render_create_post(request):
     if request.method == 'POST':
+        # Створюємо об'єкт форми та передаємо у неї дані та файлі, які користувачч ввів у формі
         form = PostForm(request.POST, request.FILES)
+        # Перевірка валідності форми (усі дані введені вірно)
         if form.is_valid():
-            new_post = Post.objects.create(
-                title=form.cleaned_data['title'],
-                content=form.cleaned_data['content'],
-                image=form.cleaned_data['image'],
-                author =Profile.objects.get(user= request.user), 
-            )
-            new_post.tags.set(form.cleaned_data['tags'])
-            new_post.save()        
+            # Отримуємо автора на основі користувача, який є авторизованим
+            author =Profile.objects.get(user= request.user)
+            # Збереження форми у БД (у підв'язану модель)
+            form.save(author)
             return redirect('all_posts')
     else:
         form = PostForm()
